@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.aps.utils.image;
 
 import java.util.Arrays;
@@ -34,32 +30,27 @@ public class ImageAnalyzer {
         File outputFile = new File(filename);
         ImageIO.write(image, "jpg", outputFile);
     }
-    
+
     public static Color getBaseColor(BufferedImage sourceImage) {
         int width = sourceImage.getWidth();
         int height = sourceImage.getHeight();
         int counter = 0;
-        
+
         Color[] colors = new Color[width * height];
-        
-        for(int y = 0; y < height; y++) {
-            for(int x = 0; x < width; x++) {
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
                 int pixel = sourceImage.getRGB(x, y);
                 colors[counter++] = new Color(pixel, true);
             }
         }
-        
-        Color color = Arrays.asList(colors)
-            .stream()
-            .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
-            .entrySet()
-            .stream()
-            .max(Map.Entry.comparingByValue())
-            .get()
-            .getKey();
-        
+
+        Color color = Arrays.asList(colors).stream()
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting())).entrySet().stream()
+                .max(Map.Entry.comparingByValue()).get().getKey();
+
         System.out.println(color);
-        
+
         return color;
     }
 
